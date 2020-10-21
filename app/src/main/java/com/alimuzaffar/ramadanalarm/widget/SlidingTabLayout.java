@@ -18,9 +18,10 @@ package com.alimuzaffar.ramadanalarm.widget;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.annotation.ColorRes;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.ColorRes;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
@@ -39,7 +40,7 @@ import com.alimuzaffar.ramadanalarm.R;
  * the user's scroll progress.
  * <p/>
  * To use the component, simply add it to your view hierarchy. Then in your
- * {@link android.app.Activity} or {@link android.support.v4.app.Fragment} call
+ * {@link android.app.Activity} or {@link Fragment} call
  * {@link #setViewPager(ViewPager)} providing it the ViewPager this layout is being used for.
  * <p/>
  * The colors can be customized in two ways. The first and simplest is to provide an array of colors
@@ -76,7 +77,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
   private boolean mDistributeEvenly;
 
   private ViewPager mViewPager;
-  private SparseArray<String> mContentDescriptions = new SparseArray<String>();
+  private SparseArray<String> mContentDescriptions = new SparseArray<>();
   private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
   private final SlidingTabStrip mTabStrip;
@@ -208,14 +209,14 @@ public class SlidingTabLayout extends HorizontalScrollView {
         // If there is a custom tab view layout id set, try and inflate it
         tabView = LayoutInflater.from(getContext()).inflate(mTabViewLayoutId, mTabStrip,
             false);
-        tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
+        tabTitleView = tabView.findViewById(mTabViewTextViewId);
       }
 
       if (tabView == null) {
         tabView = createDefaultTabView(getContext());
       }
 
-      if (tabTitleView == null && TextView.class.isInstance(tabView)) {
+      if (tabTitleView == null && tabView instanceof TextView) {
         tabTitleView = (TextView) tabView;
       }
 

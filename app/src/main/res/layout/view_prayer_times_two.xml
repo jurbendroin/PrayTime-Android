@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<androidx.cardview.widget.CardView
     android:id="@+id/card_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -71,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/space"
-                android:paddingRight="@dimen/space">
+                android:paddingRight="@dimen/space"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     style="@style/Widget.TimeCol"
@@ -85,8 +86,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:drawableBottom="@drawable/icon_fajr_opt2"
-                        android:text="@string/fajr"/>
+                        android:text="@string/fajr"
+                        card_view:drawableBottomCompat="@drawable/icon_fajr_opt2" />
 
                     <TextView
                         android:id="@+id/fajr"
@@ -112,8 +113,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:drawableBottom="@drawable/icon_dhuhr_opt2"
-                        android:text="@string/dhuhr"/>
+                        android:text="@string/dhuhr"
+                        card_view:drawableBottomCompat="@drawable/icon_dhuhr_opt2" />
 
                     <TextView
                         android:id="@+id/dhuhr"
@@ -137,8 +138,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:drawableBottom="@drawable/icon_asr_opt2"
-                        android:text="@string/asr"/>
+                        android:text="@string/asr"
+                        card_view:drawableBottomCompat="@drawable/icon_asr_opt2" />
 
                     <TextView
                         android:id="@+id/asr"
@@ -162,8 +163,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:drawableBottom="@drawable/icon_maghrib_opt2"
-                        android:text="@string/maghrib"/>
+                        android:text="@string/maghrib"
+                        card_view:drawableBottomCompat="@drawable/icon_maghrib_opt2" />
 
                     <TextView
                         android:id="@+id/maghrib"
@@ -187,8 +188,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:drawableBottom="@drawable/icon_isha_opt2"
-                        android:text="Isha"/>
+                        android:text="Isha"
+                        card_view:drawableBottomCompat="@drawable/icon_isha_opt2" />
 
                     <TextView
                         android:id="@+id/isha"
@@ -205,9 +206,9 @@
                 android:id="@+id/alarm"
                 style="@style/Widget.Button.NextPrev"
                 android:layout_width="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:text="@string/button_alarm_on"/>
         </LinearLayout>
     </ScrollView>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

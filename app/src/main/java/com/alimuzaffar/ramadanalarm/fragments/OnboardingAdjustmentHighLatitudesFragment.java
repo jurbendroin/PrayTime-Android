@@ -2,7 +2,7 @@ package com.alimuzaffar.ramadanalarm.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,13 +65,13 @@ public class OnboardingAdjustmentHighLatitudesFragment extends OnboardingBaseFra
     view.findViewById(R.id.prev).setOnClickListener(this);
     view.findViewById(R.id.next).setOnClickListener(this);
 
-    TextView title = (TextView) view.findViewById(R.id.card_title);
+    TextView title = view.findViewById(R.id.card_title);
     title.setText(R.string.high_latitude);
 
-    views[0] = (TextView) view.findViewById(R.id.high_lat_none);
-    views[1] = (TextView) view.findViewById(R.id.high_lat_midnight);
-    views[2] = (TextView) view.findViewById(R.id.high_lat_one_seventh);
-    views[3] = (TextView) view.findViewById(R.id.high_lat_angle_based);
+    views[0] = view.findViewById(R.id.high_lat_none);
+    views[1] = view.findViewById(R.id.high_lat_midnight);
+    views[2] = view.findViewById(R.id.high_lat_one_seventh);
+    views[3] = view.findViewById(R.id.high_lat_angle_based);
 
     AppSettings settings = AppSettings.getInstance(getActivity());
     for (int i=0; i<views.length; i++) {

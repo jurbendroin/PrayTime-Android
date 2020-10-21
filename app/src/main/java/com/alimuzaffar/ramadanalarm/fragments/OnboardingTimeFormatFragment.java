@@ -2,7 +2,7 @@ package com.alimuzaffar.ramadanalarm.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,15 +65,15 @@ public class OnboardingTimeFormatFragment extends OnboardingBaseFragment {
     View view = inflater.inflate(R.layout.fragment_onboarding_time_format, container, false);
 
     view.findViewById(R.id.prev).setOnClickListener(this);
-    TextView next = (TextView) view.findViewById(R.id.next);
+    TextView next = view.findViewById(R.id.next);
     next.setOnClickListener(this);
     next.setText(R.string.button_done);
 
-    TextView title = (TextView) view.findViewById(R.id.card_title);
+    TextView title = view.findViewById(R.id.card_title);
     title.setText(R.string.time_title);
 
-    m12h = (TextView) view.findViewById(R.id.twelve);
-    m24h = (TextView) view.findViewById(R.id.twenty_four);
+    m12h = view.findViewById(R.id.twelve);
+    m24h = view.findViewById(R.id.twenty_four);
     m12h.setOnClickListener(this);
     m24h.setOnClickListener(this);
 

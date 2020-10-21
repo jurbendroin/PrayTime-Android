@@ -4,10 +4,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.alimuzaffar.ramadanalarm.fragments.OnOnboardingOptionSelectedListener;
 import com.alimuzaffar.ramadanalarm.fragments.OnboardingAdjustmentHighLatitudesFragment;
@@ -32,12 +32,12 @@ public class OnboardingActivity extends AppCompatActivity implements OnOnboardin
     super.onCreate(savedInstanceState);
     ScreenUtils.lockOrientation(this);
     setContentView(R.layout.activity_onboarding);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     // Instantiate a ViewPager and a PagerAdapter.
     Intent intent = getIntent();
     mCardIndex = intent.getIntExtra(EXTRA_CARD_INDEX, 0);
-    mPager = (ViewPager) findViewById(R.id.pager);
+    mPager = findViewById(R.id.pager);
     mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager(), mCardIndex);
     mPager.setAdapter(mPagerAdapter);
   }
@@ -72,7 +72,7 @@ public class OnboardingActivity extends AppCompatActivity implements OnOnboardin
   }
 
   private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-    int mCardIndex = 0;
+    int mCardIndex;
 
     public ScreenSlidePagerAdapter(FragmentManager fm, int cardIndex) {
       super(fm);

@@ -12,8 +12,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +50,7 @@ public class KaabaLocatorFragment extends Fragment implements Constants, OnMapRe
   MapFragment mMapFragment;
   GoogleMap mMap;
 
-//  private float currentDegree = 0f;
+  //  private float currentDegree = 0f;
   private SensorManager mSensorManager;
 
   private float[] mRotationMatrix = new float[16];
@@ -71,7 +75,7 @@ public class KaabaLocatorFragment extends Fragment implements Constants, OnMapRe
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     if (getArguments() != null) {
-      mLastLocation = (Location) getArguments().getParcelable(EXTRA_LAST_LOCATION);
+      mLastLocation = getArguments().getParcelable(EXTRA_LAST_LOCATION);
     }
   }
 
@@ -98,7 +102,9 @@ public class KaabaLocatorFragment extends Fragment implements Constants, OnMapRe
   private boolean checkPermissions() {
     if (!PermissionUtil.hasSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
       if (!sWriterExternalPermissionDenied) {
-        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_EXTERNAL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+          requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_EXTERNAL);
+        }
       } else {
         // Perhaps inform the user why they aren't seeing anything.
       }
@@ -314,7 +320,7 @@ public class KaabaLocatorFragment extends Fragment implements Constants, OnMapRe
           }
         });
 
-    CheckBox doNotShow = (CheckBox) v.findViewById(R.id.checkbox_no_show);
+    CheckBox doNotShow = v.findViewById(R.id.checkbox_no_show);
     doNotShow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

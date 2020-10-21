@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.alimuzaffar.ramadanalarm.util.AppSettings;
 
@@ -30,7 +30,7 @@ public class PassiveLocationChangedReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     String key = LocationManager.KEY_LOCATION_CHANGED;
-    Location location = null;
+    Location location;
     
     if (intent.hasExtra(key)) {
       // This update came from Passive provider, so we can extract the location

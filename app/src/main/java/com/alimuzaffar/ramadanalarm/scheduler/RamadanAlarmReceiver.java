@@ -2,13 +2,10 @@ package com.alimuzaffar.ramadanalarm.scheduler;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Build;
-import android.support.v4.content.WakefulBroadcastReceiver;
+import androidx.legacy.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
 import com.alimuzaffar.ramadanalarm.Constants;
@@ -17,10 +14,8 @@ import com.alimuzaffar.ramadanalarm.RingAlarmActivity;
 import com.alimuzaffar.ramadanalarm.util.AppSettings;
 import com.alimuzaffar.ramadanalarm.util.PrayTime;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -193,8 +188,8 @@ public class RamadanAlarmReceiver extends WakefulBroadcastReceiver implements Co
 
   private Calendar getCalendarFromPrayerTime(Calendar cal, String prayerTime) {
     String[] time = prayerTime.split(":");
-    cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(time[0]));
-    cal.set(Calendar.MINUTE, Integer.valueOf(time[1]));
+    cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time[0]));
+    cal.set(Calendar.MINUTE, Integer.parseInt(time[1]));
     cal.set(Calendar.SECOND, 0);
     cal.set(Calendar.MILLISECOND, 0);
 

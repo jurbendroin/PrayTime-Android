@@ -7,9 +7,9 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -54,7 +54,7 @@ public class SalaatTimesActivity extends AppCompatActivity implements Constants,
     setContentView(R.layout.activity_salaat_times);
     ScreenUtils.lockOrientation(this);
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
     mLocationHelper = (LocationHelper) getFragmentManager().findFragmentByTag(LOCATION_FRAGMENT);
@@ -63,12 +63,12 @@ public class SalaatTimesActivity extends AppCompatActivity implements Constants,
     mAdapter = new ScreenSlidePagerAdapter(getFragmentManager(),0);
 
     // Assigning ViewPager View and setting the adapter
-    mPager = (ViewPager) findViewById(R.id.pager);
+    mPager = findViewById(R.id.pager);
     mPager.setAdapter(mAdapter);
     mPager.addOnPageChangeListener(this);
 
     // Assiging the Sliding Tab Layout View
-    mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
+    mTabs = findViewById(R.id.tabs);
     mTabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
     // Setting Custom Color for the Scroll bar indicator of the Tab View

@@ -1,6 +1,5 @@
 package com.alimuzaffar.ramadanalarm;
 
-import android.Manifest;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,8 +11,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -90,7 +91,7 @@ public class RingAlarmActivity extends AppCompatActivity implements Constants, V
 
     mSettings = AppSettings.getInstance(this);
 
-    mPrayerName = (TextView) findViewById(R.id.prayer_name);
+    mPrayerName = findViewById(R.id.prayer_name);
     mPrayerNameString = getIntent().getStringExtra(EXTRA_PRAYER_NAME);
 
     mPreAlarm = getIntent().hasExtra(EXTRA_PRE_ALARM_FLAG) && getIntent().getBooleanExtra(EXTRA_PRE_ALARM_FLAG, true);
@@ -104,7 +105,7 @@ public class RingAlarmActivity extends AppCompatActivity implements Constants, V
       mPrayerName.setText(getString(R.string.prayer_name_time, mPrayerNameString));
     }
 
-    mAlarmOff = (Button) findViewById(R.id.alarm_off);
+    mAlarmOff = findViewById(R.id.alarm_off);
     mAlarmOff.setOnClickListener(this);
 
     try {
@@ -343,7 +344,7 @@ public class RingAlarmActivity extends AppCompatActivity implements Constants, V
   }
 
   private static class AscendingAlarmHandler extends Handler {
-    WeakReference<AudioManager> mAudioManagerRef = null;
+    WeakReference<AudioManager> mAudioManagerRef;
 
 
     public AscendingAlarmHandler(AudioManager audioManager) {
@@ -351,7 +352,7 @@ public class RingAlarmActivity extends AppCompatActivity implements Constants, V
     }
 
     @Override
-    public void handleMessage(Message msg) {
+    public void handleMessage(@NonNull Message msg) {
       super.handleMessage(msg);
       AudioManager audioManager = mAudioManagerRef.get();
       if (audioManager != null) {
