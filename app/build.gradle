@@ -11,6 +11,17 @@ android {
         targetSdkVersion 28
         versionCode 35
         versionName "2.0.5"
+        // Read the API key from secure.properties into R.string.maps_api_key
+        def secureProps = new Properties()
+        if (file("../../secure.properties").exists()) {
+            file("../../secure.properties")?.withInputStream { secureProps.load(it) }
+        }
+        resValue "string", "secret_google_maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
+
+        // To add your Maps API key to this project:
+        // 1. Create a file ../../../../secure.properties (relative to this file)
+        // 2. Add this line, where YOUR_API_KEY is your API key:
+        //        MAPS_API_KEY=YOUR_API_KEY
     }
 
     compileOptions {
