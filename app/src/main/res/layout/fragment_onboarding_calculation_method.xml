@@ -77,6 +77,15 @@
         android:tag="0"
         android:text="@string/calc_method_jafari"/>
 
+    <TextView
+        android:id="@+id/kemenag"
+        style="@style/Widget.TimeRow.Separator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:tag="7"
+        android:text="@string/calc_method_kemenag"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

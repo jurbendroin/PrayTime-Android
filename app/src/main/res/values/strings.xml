@@ -58,6 +58,7 @@
     <string name="calc_method_egypt">EGYPT - Egyptian General Authority of Survey</string>
     <string name="calc_method_tehran">TEHRAN - Institute of Geophysics, University of Tehran</string>
     <string name="calc_method_jafari">JAFARI - Ithna Ashari</string>
+    <string name="calc_method_kemenag">Kemenag - RI</string>
 
     <string name="asr_method_shafii">Shafii (Standard)</string>
     <string name="asr_method_hanfi">Hanfi</string>

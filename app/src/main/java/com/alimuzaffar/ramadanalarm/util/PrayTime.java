@@ -54,8 +54,8 @@ public class PrayTime {
   public static final int MWL = 3; // Muslim World League (MWL)
   public static final int MAKKAH = 4; // Umm al-Qura, MAKKAH
   public static final int EGYPT = 5; // Egyptian General Authority of Survey
-  public static final int CUSTOM = 7; // CUSTOM Setting
   public static final int TEHRAN = 6; // Institute of Geophysics, University of TEHRAN
+  public static final int CUSTOM = 7; // CUSTOM Setting
   // Juristic Methods
   public static final int SHAFII = 0; // SHAFII (standard)
   public static final int HANAFI = 1; // HANAFI
@@ -86,7 +86,7 @@ public class PrayTime {
    * (in angle or minutes)
    */
   private double[] prayerTimesCurrent;
-  private int[] offsets;
+  private static double[] offsets;
 
   public PrayTime() {
     // Initialize vars
@@ -116,21 +116,22 @@ public class PrayTime {
     // ------------------- Calc Method Parameters --------------------
 
     // Tuning offsets {fajr, sunrise, dhuhr, asr, sunset, maghrib, isha}
-    offsets = new int[7];
-    offsets[0] = 0;
+    offsets = new double[7];
+    offsets[0] = 2.5;
     offsets[1] = 0;
-    offsets[2] = 0;
-    offsets[3] = 0;
+    offsets[2] = 2.5;
+    offsets[3] = 2.5;
     offsets[4] = 0;
-    offsets[5] = 0;
-    offsets[6] = 0;
+    offsets[5] = 2.5;
+    offsets[6] = 2.5;
 
     /*
      *
-     * fa : fajr angle ms : maghrib selector (0 = angle; 1 = minutes after
-     * sunset) mv : maghrib parameter value (in angle or minutes) is : isha
-     * selector (0 = angle; 1 = minutes after maghrib) iv : isha parameter
-     * value (in angle or minutes)
+     * fa : fajr angle
+     * ms : maghrib selector (0 = angle; 1 = minutes after sunset)
+     * mv : maghrib parameter value (in angle or minutes)
+     * is : isha selector (0 = angle; 1 = minutes after maghrib)
+     * iv : isha parameter value (in angle or minutes)
      */
     methodParams = new HashMap<Integer, double[]>();
 
@@ -163,7 +164,7 @@ public class PrayTime {
     methodParams.put(TEHRAN, Tvalues);
 
     // CUSTOM
-    double[] Cvalues = {18, 1, 0, 0, 17};
+    double[] Cvalues = {20, 1, 0, 0, 18};
     methodParams.put(CUSTOM, Cvalues);
 
   }
@@ -645,7 +646,7 @@ public class PrayTime {
 
   // Tune timings for adjustments
   // Set time offsets
-  public void tune(int[] offsetTimes) {
+  public void tune(double[] offsetTimes) {
 
     for (int i = 0; i < offsetTimes.length; i++) { // offsetTimes length
       // should be 7 in order
@@ -688,7 +689,7 @@ public class PrayTime {
     prayers.setAsrJuristic(prayers.SHAFII);
     prayers.setAdjustHighLats(prayers.ANGLE_BASED);
 
-    int[] offsets = {0, 0, 0, 0, 0, 0, 0}; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
+//    double[] offsets = {0, 0, 0, 0, 0, 0, 0}; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
     prayers.tune(offsets);
 
     Date now = new Date();
@@ -735,7 +736,7 @@ public class PrayTime {
     prayers.setAsrJuristic(settings.getAsrMethodSetFor(index));
     prayers.setAdjustHighLats(settings.getHighLatitudeAdjustmentFor(index));
 
-    int[] offsets = {0, 0, 0, 0, 0, 0, 0}; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
+//    double[] offsets = {0, 0, 0, 0, 0, 0, 0}; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
     prayers.tune(offsets);
 
     Date now = new Date();
