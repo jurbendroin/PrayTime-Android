@@ -120,9 +120,6 @@ public class KaabaLocatorFragment extends Fragment implements Constants, OnMapRe
 
     if (mMapFragment == null) {
       mMapFragment = (MapFragment) getFragmentManager().findFragmentByTag("map_fragment");
-    }
-
-    if (mMapFragment == null) {
       GoogleMapOptions options = new GoogleMapOptions()
               .rotateGesturesEnabled(false)
               .tiltGesturesEnabled(false)
@@ -145,6 +142,7 @@ public class KaabaLocatorFragment extends Fragment implements Constants, OnMapRe
 
   public void hideMap() {
     unregisterRotationListener();
+    mMapFragment = null;
   }
 
   @Override
@@ -173,7 +171,7 @@ public class KaabaLocatorFragment extends Fragment implements Constants, OnMapRe
     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPosition, 13));
     //mMap.getUiSettings().setRotateGesturesEnabled(false);
 
-    mMap.clear();
+//    mMap.clear();
 
     mMap.addMarker(new MarkerOptions()
         .title(getString(R.string.kaaba))
@@ -201,6 +199,13 @@ public class KaabaLocatorFragment extends Fragment implements Constants, OnMapRe
   public void onResume() {
     super.onResume();
     registerRotationListener();
+  }
+
+  @Override
+  public void onDestroyView() {
+    unregisterRotationListener();
+    super.onDestroyView();
+
   }
 
   @Override
