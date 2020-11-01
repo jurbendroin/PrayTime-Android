@@ -4,12 +4,17 @@ package com.alimuzaffar.ramadanalarm.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.alimuzaffar.ramadanalarm.Constants;
 import com.alimuzaffar.ramadanalarm.R;
@@ -19,6 +24,9 @@ import com.alimuzaffar.ramadanalarm.scheduler.SalaatAlarmReceiver;
 import com.alimuzaffar.ramadanalarm.util.AppSettings;
 import com.alimuzaffar.ramadanalarm.util.PrayTime;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.LinkedHashMap;
 import java.util.TimeZone;
 
@@ -28,6 +36,8 @@ public class SalaatTimesFragment extends Fragment implements Constants {
   Location mLastLocation;
   TextView mAlarm;
   View mRamadanContainer;
+
+  private static final String TAG = SalaatTimesFragment.class.getSimpleName();
 
   public static SalaatTimesFragment newInstance(int index, Location location) {
     SalaatTimesFragment fragment = new SalaatTimesFragment();
@@ -67,6 +77,8 @@ public class SalaatTimesFragment extends Fragment implements Constants {
     // makes it easier to work with the layout editor.
     // inflater.inflate(R.layout.view_prayer_times, timesContainer, true);
 
+    SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+
     if (mLastLocation == null) {
       return;
     }
@@ -76,8 +88,72 @@ public class SalaatTimesFragment extends Fragment implements Constants {
     LinkedHashMap<String, String> prayerTimes =
         PrayTime.getPrayerTimes(getActivity(), mIndex, mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
+    // coba cara-2 code from com.droidmentor.locationhelper;
+//    String address = "";
+//    String address1 = "";
+    String city;
+//    String state = "";
+//    String country = "";
+//    String postalCode = "";
+
+    Address locationAddress;
+
+    locationAddress=getAddress(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+
+    if(locationAddress!=null)
+    {
+
+//      address = locationAddress.getAddressLine(0);
+//      address1 = locationAddress.getAddressLine(1);
+      city = locationAddress.getLocality();
+      if (!city.equals("")) {
+        sharedPreferences.edit().putString("LOCATION_CITY", city).apply();
+      }
+
+//      state = locationAddress.getAdminArea();
+//      country = locationAddress.getCountryName();
+//      postalCode = locationAddress.getPostalCode();
+
+
+//      String currentLocation;
+//
+//      if(!TextUtils.isEmpty(address))
+//      {
+//        currentLocation=address;
+//
+//        if (!TextUtils.isEmpty(address1))
+//          currentLocation+="\n"+address1;
+//
+//        if (!TextUtils.isEmpty(city))
+//        {
+//          currentLocation+="\n"+city;
+//
+//          if (!TextUtils.isEmpty(postalCode))
+//            currentLocation+=" - "+postalCode;
+//        }
+//        else
+//        {
+//          if (!TextUtils.isEmpty(postalCode))
+//            currentLocation+="\n"+postalCode;
+//        }
+//
+//        if (!TextUtils.isEmpty(state))
+//          currentLocation+="\n"+state;
+//
+//        if (!TextUtils.isEmpty(country))
+//          currentLocation+="\n"+country;
+//
+//      }
+
+    } else {
+      if (mLastLocation.getLatitude() == Double.parseDouble(sharedPreferences.getString("LOCATION_LAT", null)) &&
+              mLastLocation.getLongitude() == Double.parseDouble(sharedPreferences.getString("LOCATION_LON", null))) {
+        city = sharedPreferences.getString("LOCATION_CITY", null);
+      } else city = mLastLocation.getLatitude()+", "+mLastLocation.getLongitude();
+    }
+
     TextView title = (TextView) view.findViewById(R.id.card_title);
-    title.setText(TimeZone.getDefault().getID());
+    title.setText(city + "\n"+TimeZone.getDefault().getID());
 
     TextView fajr = (TextView) view.findViewById(R.id.fajr);
     TextView dhuhr = (TextView) view.findViewById(R.id.dhuhr);
@@ -181,4 +257,25 @@ public class SalaatTimesFragment extends Fragment implements Constants {
       }
     }
   }
+
+  public Address getAddress(double latitude, double longitude)
+  {
+    Geocoder geocoder;
+    List<Address> addresses;
+    geocoder = new Geocoder(getActivity(), Locale.getDefault());
+
+    try {
+      // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+      addresses = geocoder.getFromLocation(latitude,longitude, 1);
+      return addresses.get(0);
+
+    } catch (IOException e) {
+      Log.e(TAG, "Something went wrong to get location city/locality. Internet is off?");
+//      e.printStackTrace();
+    }
+
+    return null;
+
+  }
+
 }
